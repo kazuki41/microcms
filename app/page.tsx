@@ -1,19 +1,46 @@
+"use client";
+
 import { client } from "../libs/microcms";
 import type { News } from "../types/news";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from '../styles/home.module.scss'
 
 export default async function Home() {
-  const data = await client.get({ endpoint: "news" });
+  const [news, setNews] = useState<any[]>([]);
+  const heroRef = useRef(null);
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    client.get({ endpoint: "news"}).then((res) => {
+      setNews(res.contents);
+    });
+    gsap.registerPlugin(ScrollTrigger);
+    const anim = gsap.to(bgRef.current,{
+      y: "20%",
+      ease: "none",
+      scrollTrigger:{
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    return () => {
+      anim.kill();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  },[]);
 
   return (
     <div className={styles.main}>
       {/* ヒーローエリア */}
-      <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>
-          確かな技術で、<br />
-          理想の空間を築く。
-        </h1>
+      <section ref={heroRef} className={styles.hero}>
+        <div ref={bgRef} className={styles.heroBg}></div>
+
       </section>
 
       {/* ニュース一覧エリア */}
@@ -23,7 +50,7 @@ export default async function Home() {
         </h2>
         
         <ul className={styles.newsList}>
-          {data.contents.map((news: any) => (
+          {news.map((news: any) => (
             <li key={news.id} className={styles.newsItem}>
               <Link href={`/news/${news.id}`}>
                 <span className={styles.date}>{new Date(news.publishedAt).toLocaleDateString('ja-JP')}</span>

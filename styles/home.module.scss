@@ -1,44 +1,46 @@
 @import "variables";
 
-.main {
-  font-family: $font-main;
-  background-color: $color-bg;
+.section {
+  padding: $spacing-section 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  .hero {
-    height: 60vh;
-    background: linear-gradient(rgba(0, 30, 80, 0.6), rgba(0, 30, 80, 0.6)), 
-                url('/hero-bg.jpg') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    padding: 0 10%;
+  // 偶数番目のセクションは左右反転させる
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
 
-    .heroTitle {
-      color: $color-white;
-      font-size: 3.5rem;
-      font-weight: bold;
-      line-height: 1.4;
-      border-left: 8px solid $color-accent; // 建築らしい「柱」をイメージした飾り
-      padding-left: 24px;
+  .textContent {
+    width: 45%;
+    .subTitle {
+      color: #ccc;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+    .mainTitle {
+      color: $color-navy-main;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      position: relative;
+      
+      // タイトルの下の青い線
+      &::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 2px;
+        background: $color-navy-main;
+        margin-top: 10px;
+      }
     }
   }
 
-  .newsSection {
-    max-width: 1000px;
-    margin: 80px auto;
-    padding: 0 20px;
-
-    .sectionTitle {
-      font-size: 2rem;
-      color: $color-primary;
-      margin-bottom: 40px;
-      display: flex;
-      align-items: baseline;
-      gap: 15px;
-
-      small {
-        font-size: 1rem;
-        color: #94a3b8;
-      }
+  .imageContent {
+    width: 50%;
+    img {
+      width: 100%;
+      box-shadow: 20px 20px 0px $color-navy-main; // 画像の後ろに青いボックスを置くスタイル
     }
   }
 }

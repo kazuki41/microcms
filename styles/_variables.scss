@@ -1,8 +1,8 @@
-// styles/_variables.scss
-$color-primary: #1e3a8a;    // メインのネイビー
-$color-accent: #f59e0b;     // アクセントのゴールド（琥珀色）
-$color-bg: #f8fafc;         // 背景の薄いグレー
-$color-text-main: #1e293b;  // メインの文字色
-$color-white: #ffffff;
+$color-navy-main: #005bac;   // 画像の鮮やかなネイビー
+$color-navy-dark: #003a70;   // フッターや深い部分
+$color-text-title: #333333;  // タイトル文字
+$color-text-body: #666666;   // 本文のグレー
+$color-accent: #ffffff;      // 白
+$color-bg-light: #f4f7f9;    // 薄いグレーの背景
 
-$font-main: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+$spacing-section: 100px;     // セクション間の余白

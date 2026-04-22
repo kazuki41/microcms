@@ -1,46 +1,44 @@
-@import "variables";
+@use "./variables" as *;
 
-.section {
-  padding: $spacing-section 0;
+.hero {
+  position: relative;
+  height: 90vh; // 画面のほぼいっぱい
+  width: 100%;
+  background: #001e46; // 画像がない時のベースネイビー
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
 
-  // 偶数番目のセクションは左右反転させる
-  &:nth-child(even) {
-    flex-direction: row-reverse;
+  // 背景画像の設定
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/hero-bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; // 画像を暗くして文字を読みやすく
   }
 
-  .textContent {
-    width: 45%;
-    .subTitle {
-      color: #ccc;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-    }
+  .heroContent {
+    position: relative; // 画像より上に表示
+    z-index: 10;
+    
     .mainTitle {
-      color: $color-navy-main;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      position: relative;
-      
-      // タイトルの下の青い線
-      &::after {
-        content: "";
-        display: block;
-        width: 40px;
-        height: 2px;
-        background: $color-navy-main;
-        margin-top: 10px;
-      }
+      font-size: clamp(2rem, 5vw, 4rem); // 画面幅に合わせて大きさが変わる
+      color: #fff;
+      font-weight: 900;
+      line-height: 1.5;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3); // 文字に影をつけて視認性アップ
     }
-  }
-
-  .imageContent {
-    width: 50%;
-    img {
-      width: 100%;
-      box-shadow: 20px 20px 0px $color-navy-main; // 画像の後ろに青いボックスを置くスタイル
+    
+    .subTitle {
+      color: $color-navy;
+      font-weight: bold;
+      letter-spacing: 0.3em;
+      margin-bottom: 20px;
+      display: block;
     }
   }
 }

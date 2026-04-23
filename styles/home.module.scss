@@ -2,43 +2,36 @@
 
 .hero {
   position: relative;
-  height: 90vh; // 画面のほぼいっぱい
+  height: 100vh;     // 画面いっぱいの高さ
   width: 100%;
-  background: #001e46; // 画像がない時のベースネイビー
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  overflow: hidden;  // ★超重要：これがないとパララックスしてもただ画像が下に伸びるだけ
+  z-index: 1;
 
-  // 背景画像の設定
-  &::before {
-    content: "";
+  .heroBg {
     position: absolute;
-    inset: 0;
-    background-image: url('/hero-bg.jpg'); 
+    top: -10%;       // ★上に少しはみ出させる
+    left: 0;
+    width: 100%;
+    height: 120%;    // ★親要素より大きくする（動くための余裕）
+    background-image: url('/hero-bg.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.5; // 画像を暗くして文字を読みやすく
+    z-index: -1;     // 文字（もしあれば）より後ろに配置
   }
+  .heroBg::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $color-navy-main;
+    opacity: 0.5;
+  }
+}
 
-  .heroContent {
-    position: relative; // 画像より上に表示
-    z-index: 10;
-    
-    .mainTitle {
-      font-size: clamp(2rem, 5vw, 4rem); // 画面幅に合わせて大きさが変わる
-      color: #fff;
-      font-weight: 900;
-      line-height: 1.5;
-      text-shadow: 0 5px 15px rgba(0,0,0,0.3); // 文字に影をつけて視認性アップ
-    }
-    
-    .subTitle {
-      color: $color-navy;
-      font-weight: bold;
-      letter-spacing: 0.3em;
-      margin-bottom: 20px;
-      display: block;
-    }
-  }
+// ニュースセクションに背景色をつけて「重なり」をハッキリさせる
+.newsSection {
+  position: relative;
+  z-index: 10;       // heroセクションより上にくるように
+  background-color: #fff; 
+  padding: 100px 0;
 }

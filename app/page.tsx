@@ -8,7 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from '../styles/home.module.scss'
 
-export default async function Home() {
+export default function Home() {
   const [news, setNews] = useState<any[]>([]);
   const heroRef = useRef(null);
   const bgRef = useRef(null);
@@ -26,6 +26,7 @@ export default async function Home() {
         start: "top top",
         end: "bottom top",
         scrub: true,
+        // markers: true,
       },
     });
 
@@ -38,8 +39,8 @@ export default async function Home() {
   return (
     <div className={styles.main}>
       {/* ヒーローエリア */}
-      <section ref={heroRef} className={styles.hero}>
-        <div ref={bgRef} className={styles.heroBg}></div>
+      <section ref={heroRef} className={`${styles.hero} hero-visual`}>
+        <div ref={bgRef} className={`${styles.heroBg} hero-big` }></div>
 
       </section>
 

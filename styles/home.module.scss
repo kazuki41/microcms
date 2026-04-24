@@ -27,25 +27,31 @@
   overflow: hidden;  // ★超重要：これがないとパララックスしてもただ画像が下に伸びるだけ
   z-index: 1;
 
-  .heroBg {
+  .mainTitle{
     position: absolute;
-    top: -10%;       // ★上に少しはみ出させる
-    left: 0;
-    width: 100%;
-    height: 120%;    // ★親要素より大きくする（動くための余裕）
-    background-image: url('/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;     // 文字（もしあれば）より後ろに配置
+    top: 50%;
+    left: 42%;
   }
-  .heroBg::after{
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: $color-navy-main;
-    opacity: 0.5;
-  }
+
+  // .heroBg {
+  //   position: absolute;
+  //   top: -10%;       // ★上に少しはみ出させる
+  //   left: 0;
+  //   width: 100%;
+  //   height: 120%;    // ★親要素より大きくする（動くための余裕）
+  //   background-image: url('/hero-bg.jpg');
+  //   background-size: cover;
+  //   background-position: center;
+  //   z-index: -1;     // 文字（もしあれば）より後ろに配置
+  // }
+  // .heroBg::after{
+  //   content: "";
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: $color-navy-main;
+  //   opacity: 0.5;
+  // }
 }
 
 // ニュースセクションに背景色をつけて「重なり」をハッキリさせる

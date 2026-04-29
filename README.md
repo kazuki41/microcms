@@ -47,7 +47,6 @@
 ![ポートフォリオデザイン](./docs/portfolio-design.png)
 
 ※ 上記画像はデザインイメージです
-※ `docs/portfolio-design.png` に画像を配置してください
 
 ---
 

@@ -1,37 +1,18 @@
 @use "./variables" as *;
 
-.loader {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000; // 重厚感のある濃いネイビー
-  z-index: 9999; // 一番手前に
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .loaderText {
-    color: #fff;
-    font-size: 1.2rem;
-    letter-spacing: 0.3em;
-    opacity: 0; // 最初は隠しておく
-    transform: translateY(20px);
-  }
-}
 
 .loaderContainer {
   position: fixed;
+  height: 100vh;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
   display: flex; // パネルを横並びにする
   pointer-events: none; // クリックを透過させる
 
   .loaderPanel {
     flex: 1; // 画面幅を均等に分ける
     height: 100%;
-    background-color: #000; // 濃いネイビー（ベンチマークに合わせる）
-    // 境界線に隙間ができる場合は width: 101% にして少し重ねる
+    background-color: $color-white;
     width: 100.5%; 
   }
 }
@@ -42,38 +23,42 @@
   width: 100%;
   overflow: hidden;  // ★超重要：これがないとパララックスしてもただ画像が下に伸びるだけ
   z-index: 1;
+  background-color: $color-main;
 
   .mainTitle{
     position: absolute;
     top: 50%;
-    left: 42%;
+    left: 20%;
+    color: $color-white;
+    font-size: 50px;
   }
-
-  // .heroBg {
-  //   position: absolute;
-  //   top: -10%;       // ★上に少しはみ出させる
-  //   left: 0;
-  //   width: 100%;
-  //   height: 120%;    // ★親要素より大きくする（動くための余裕）
-  //   background-image: url('/hero-bg.jpg');
-  //   background-size: cover;
-  //   background-position: center;
-  //   z-index: -1;     // 文字（もしあれば）より後ろに配置
-  // }
-  // .heroBg::after{
-  //   content: "";
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: $color-navy-main;
-  //   opacity: 0.5;
-  // }
-}
-
-// ニュースセクションに背景色をつけて「重なり」をハッキリさせる
-.newsSection {
+// 「光」のアニメーションエリア
+.lightWrapper {
   position: relative;
-  z-index: 10;       // heroセクションより上にくるように
-  background-color: #fff; 
-  padding: 100px 0;
+  width: 40%; // 画面の右側40%を使う
+  height: 60%; // 中央付近に配置
+  display: flex;
+  flex-direction: column; // ラインを縦に並べる
+  justify-content: center;
+  gap: 3rem; // ライン同士の間隔
+
+  .lightLine {
+    width: 100%; //Wrapperいっぱいに
+    height: 1px; // 細い線
+    opacity: 0; // JSで制御
+    
+    // ★ 光の正体：グラデーション。中央が明るい白
+    background: linear-gradient(
+      90deg, 
+      rgba(255,255,255,0) 0%,   // 開始（透明）
+      rgba(255,255,255,0) 20%,  
+      rgba(255,255,255,1) 50%,  // 中央（強い白の光）
+      rgba(255,255,255,0) 80%,  
+      rgba(255,255,255,0) 100%  // 終了（透明）
+    );
+    
+    background-size: 200% 100%; // グラデーションの可動域を広げる
+  }
 }
+}
+

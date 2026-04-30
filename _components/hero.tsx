@@ -1,56 +1,37 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "../styles/home.module.scss";
 
 export const Hero = () => {
   // 文字を分割して表示する関数（手動でもOK）
   const text = "SAMPLE SITE";
   const heroRef = useRef(null);
-  const bgRef = useRef(null);
-  // const titleRef = useRef(null);
-  // const titleCharsRef = useRef<HTMLSpanElement[]>([]);
-  // const loaderRef = useRef(null);
-  const loaderPanelsRef = useRef<HTMLDivElement[]>([]);
-  // const [loading, setLoading] = useState(true);
+  const linesRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const tl = gsap.timeline();
-
-    tl.to(loaderPanelsRef.current, {
-      y: "-100%",
-      duration: 1.2,
-      ease: "expo.inOut",
-      stagger: 0.1,
-    }).from(
-      ".char",
+    linesRef.current,
       {
-        // クラス名 ".char" を持つ要素を順番に
-        x: 100, // 右から
-        opacity: 0,
-        rotateY: 45, // 少し角度をつけるとより立体的
-        duration: 1,
-        stagger: 0.1, // 0.1秒ずつズレて登場！
-        ease: "power3.out",
+        // グラデーションの「光の開始位置」を画面外（左側）にセット
+        backgroundPosition: "-200% 0%",
       },
-      "-=0.5",
-    ); // 幕が開く少し前から開始
-  }, []);
+      {
+        // グラデーションの「光の位置」を右側へ走らせる
+        backgroundPosition: "200% 0%",
+        duration: 1.5,
+        ease: "power2.inOut",
+        stagger: 0.15, // 複数のラインがズレて動く
+        // 走った後はフェードアウト
+        onComplete: () => {
+          gsap.to(linesRef.current, { opacity: 0.2, duration: 1 });
+        }
+      },
+      "-=0.4" // タイトルが出きる少し前から
+  });
 
   return (
     <section ref={heroRef} className={`${styles.hero} hero-visual`}>
-      {/* ローディングコンテナ */}
-      <div className={styles.loaderContainer}>
-        {/* 5枚のパネルを生成 */}
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            ref={(el) => {
-              if(el)(loaderPanelsRef.current[i] = el)}}
-            className={styles.loaderPanel}
-          />
-        ))}
-      </div>
       <h1 className={styles.mainTitle}>
         {text.split("").map((char, i) => (
           <span key={i} className="char" style={{ display: "inline-block" }}>
@@ -58,7 +39,18 @@ export const Hero = () => {
           </span>
         ))}
       </h1>
-      <div ref={bgRef} className={`${styles.heroBg} hero-big`}></div>
+      {/* 右側の「光」のアニメーションエリア */}
+      <div className={styles.lightWrapper}>
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              if (el) linesRef.current[i] = el;
+            }}
+            className={styles.lightLine}
+          />
+        ))}
+      </div>
     </section>
   );
 };

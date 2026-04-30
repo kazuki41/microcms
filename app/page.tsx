@@ -18,10 +18,9 @@ export default function Home() {
       duration: 1.2,
       ease: "expo.inOut",
       stagger: 0.1,
-      onComplete: () => {
+    }).add(() => {
         setIsLoaded(true);
-      }
-    });
+    },"-=1");
   }, []);
 
   return (

@@ -17,8 +17,8 @@ export const Hero = ({ startAnim }: { startAnim: boolean }) => {
     const tl = gsap.timeline();
   
     // 1. テキストの出現アニメーション
-    // .from(対象, {開始状態の設定}) と書きます。
-    tl.from(chars, { 
+    tl.set(containerRef.current, { opacity: 1 })
+    .from(chars, {
       opacity: 0, 
       x: 100,
       rotateY: 45,
@@ -33,7 +33,7 @@ export const Hero = ({ startAnim }: { startAnim: boolean }) => {
       duration: 20,
       ease: "none",
       repeat: -1,
-    }, "-=0.4"); // 出現が終わる0.4秒前に開始
+    }, "-=3"); // 出現が終わる0.4秒前に開始
   
   }, [startAnim]);
 

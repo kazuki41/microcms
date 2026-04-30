@@ -7,6 +7,7 @@ import styles from "../styles/home.module.scss";
 
 export default function Home() {
   const loaderPanelsRef = useRef<HTMLDivElement[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -17,23 +18,15 @@ export default function Home() {
       duration: 1.2,
       ease: "expo.inOut",
       stagger: 0.1,
-    }).from( 
-      //テキストアニメーション
-      ".char",
-      {
-        x: 100, 
-        opacity: 0,
-        rotateY: 45, 
-        duration: 1,
-        stagger: 0.1, 
-        ease: "power3.out",
-      },
-      "-=0.5",
-    );
+      onComplete: () => {
+        setIsLoaded(true);
+      }
+    });
   }, []);
 
   return (
     <div className={styles.main}>
+
       {/* ローディングコンテナ */}
       <div className={styles.loaderContainer}>
         {/* 5枚のパネルを生成 */}
@@ -48,7 +41,7 @@ export default function Home() {
         ))}
       </div>
 
-      <Hero />
+      <Hero startAnim={isLoaded} />
     </div>
   );
 }

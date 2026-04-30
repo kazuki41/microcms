@@ -18,47 +18,37 @@
 }
 
 .hero {
-  position: relative;
-  height: 100vh;     // 画面いっぱいの高さ
-  width: 100%;
-  overflow: hidden;  // ★超重要：これがないとパララックスしてもただ画像が下に伸びるだけ
-  z-index: 1;
+  height: 100vh;
   background-color: $color-main;
-
-  .mainTitle{
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    color: $color-white;
-    font-size: 50px;
-  }
-// 「光」のアニメーションエリア
-.lightWrapper {
-  position: relative;
-  width: 40%; // 画面の右側40%を使う
-  height: 60%; // 中央付近に配置
   display: flex;
-  flex-direction: column; // ラインを縦に並べる
-  justify-content: center;
-  gap: 3rem; // ライン同士の間隔
-
-  .lightLine {
-    width: 100%; //Wrapperいっぱいに
-    height: 1px; // 細い線
-    opacity: 0; // JSで制御
-    
-    // ★ 光の正体：グラデーション。中央が明るい白
-    background: linear-gradient(
-      90deg, 
-      rgba(255,255,255,0) 0%,   // 開始（透明）
-      rgba(255,255,255,0) 20%,  
-      rgba(255,255,255,1) 50%,  // 中央（強い白の光）
-      rgba(255,255,255,0) 80%,  
-      rgba(255,255,255,0) 100%  // 終了（透明）
-    );
-    
-    background-size: 200% 100%; // グラデーションの可動域を広げる
-  }
+  align-items: center; // 上下中央
+  overflow: hidden; // 重要：はみ出た文字を隠す
+  position: relative;
 }
+
+.container {
+  width: 100%;
+  position: relative;
+  
+  .marqueeInner {
+    display: inline-block;
+    white-space: nowrap; // 改行させない
+    will-change: transform; // アニメーションを滑らかにする
+    
+    .mainTitle {
+      display: inline-block;
+      // 画面幅に合わせて文字サイズを動的に変える（最重要）
+      font-size: clamp(30rem, 15vw, 10rem);
+      opacity: 1;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em; // 少し詰めるとモダンに
+      line-height: 0.9;
+      
+      .char {
+        display: inline-block;
+      }
+    }
+  }
 }
 

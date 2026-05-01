@@ -1,6 +1,7 @@
 "use client";
 
 import { Hero } from "../_components/hero";
+import { WorkHistory } from "../_components/work-history";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "../styles/home.module.scss";
@@ -8,6 +9,7 @@ import styles from "../styles/home.module.scss";
 export default function Home() {
   const loaderPanelsRef = useRef<HTMLDivElement[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const stories = [];
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -41,6 +43,7 @@ export default function Home() {
       </div>
 
       <Hero startAnim={isLoaded} />
+      {isLoaded && <WorkHistory/>}
     </div>
   );
 }

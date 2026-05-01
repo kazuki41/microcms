@@ -1,6 +1,6 @@
-@use "./variables" as *;
+@use "./variables";
 
-
+//ローディングアニメーション
 .loaderContainer {
   position: fixed;
   height: 100vh;
@@ -12,14 +12,15 @@
   .loaderPanel {
     flex: 1; // 画面幅を均等に分ける
     height: 100%;
-    background-color: $color-white;
+    background-color: variables.$color-white;
     width: 100.5%; 
   }
 }
 
+//heroセクション
 .hero {
   height: 100vh;
-  background-color: $color-main;
+  background-color: variables.$color-main;
   display: flex;
   align-items: center; // 上下中央
   overflow: hidden; // 重要：はみ出た文字を隠す
@@ -52,3 +53,165 @@
   }
 }
 
+//storyセクション
+.workHistory {
+  padding: 120px 20px;
+  background-color: variables.$color-main;
+  color: #fff;
+  font-family: sans-serif; // デザインに合わせたフォントを指定
+
+  .inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 100px;
+    position: relative;
+
+    // 左上の「02 Story」ラベル
+    &::before {
+      content: "02\nStory";
+      position: absolute;
+      top: -20px;
+      left: 0;
+      text-align: left;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.2;
+      white-space: pre; // 改行を有効にする
+    }
+
+    .sectionTitle {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: relative;
+      display: inline-block;
+
+      // タイトル下の白線
+      &::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 2px;
+        background: #fff;
+        margin: 20px auto 0;
+      }
+    }
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  // gap は使わず、lineWrapper の高さで調整
+}
+
+.timelineItem {
+  display: grid;
+  // 年代(150px)、ライン/アイコン(100px)、コンテンツ(1fr)
+  grid-template-columns: 150px 100px 1fr;
+  align-items: start;
+  margin-bottom: -20px; // アイコンとラインの接続調整
+
+  // 左側：年代ラベル
+  .timeLabel {
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 40px;
+    padding-top: 35px; // アイコンの中心に合わせる
+  }
+
+  // 中央：ラインとアイコン
+  .lineWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%; // 親（Grid）の高さ一杯に伸ばす
+
+    // 丸いアイコンコンテナ
+    .iconCircle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.6); // アイコンの中を少し暗く
+      border: 1px solid rgba(variables.$color-sub, 0.4); // 青い細い枠線
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem; // アイコンのサイズ
+      color: variables.$color-sub; // アイコンの色を青に
+      z-index: 2;
+      position: relative;
+      
+      // デザイン案の「青いネオンエフェクト（光沢）」
+      box-shadow: 0 0 15px rgba(variables.$color-sub, 0.3), 
+                  inset 0 0 10px rgba(variables.$color-sub, 0.2);
+
+      // SVGアイコンを使う場合は、ここで色を強制する
+      svg {
+        width: 35px;
+        height: 35px;
+        fill: variables.$color-sub;
+      }
+    }
+
+    // 縦のライン
+    .verticalLine {
+      width: 1px;
+      background: rgba(255, 255, 255, 0.1); // 薄いグレーの線
+      position: absolute;
+      top: 70px; // アイコンの下から開始
+      bottom: -60px; // 次のアイテムのアイコンまで伸ばす
+      z-index: 1;
+
+      // ライン上の「青い小さなドット」
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0; // ラインの最下部に配置
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background-color: variables.$color-sub;
+        border-radius: 50%;
+        box-shadow: 0 0 10px variables.$color-sub; // ドットも光らせる
+      }
+    }
+  }
+
+  // 右側：コンテンツ
+  .content {
+    padding-left: 20px;
+    padding-top: 25px; // アイコンのトップに合わせる
+    padding-bottom: 80px; // 次のアイテムとの間隔
+
+    .itemTitle {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 15px;
+      letter-spacing: 0.02em;
+    }
+
+    .itemDescription {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7); // 本文は少し薄く
+      line-height: 1.9;
+      max-width: 600px; // 読みやすい横幅に制限
+    }
+  }
+}
+
+// 最後のアイテムだけ特別処理（ラインを消すドットを残すため、Story.tsxで制御済み）
+.timelineItem:last-child {
+  .content {
+    padding-bottom: 0; // 最後の余白を消す
+  }
+}

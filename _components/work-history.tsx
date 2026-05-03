@@ -1,6 +1,13 @@
 "use client";
-// import { FaCarAlt } from "react-icons/fa";
-// import { MdCorporateFare } from "react-icons/md";
+import { FaSchool , FaCarAlt } from "react-icons/fa";
+import { MdCorporateFare } from "react-icons/md";
+
+const ICON_MAP = {
+  Corporate: <MdCorporateFare />,
+  School: <FaSchool />,
+  Car: <FaCarAlt />,
+};
+
 import { useEffect, useState } from "react";
 import { client } from "../libs/microcms";
 import styles from "../styles/home.module.scss";
@@ -15,7 +22,13 @@ export const WorkHistory = () => {
         const res = await client.get({
           endpoint: "work-history", 
         });
-        setHistory(res.contents);
+        setHistory(
+          res.contents.sort(
+            (a, b) =>
+            new Date(a.createdAt).getTime() -
+            new Date(b.createdAt).getTime()
+          )
+        );
       } catch (err) {
         console.error("データの取得に失敗しました:", err);
       }
@@ -36,9 +49,10 @@ return (
             <div key={item.id} className={styles.timelineItem}>
               <div className={styles.timeLabel}>{item.year}</div>
               <div className={styles.lineWrapper}>
-                {/* <div className={styles.iconCircle}>
-                  {ICON_MAP[item.iconType] || <LuCode2 />}
-                </div> */}
+                <div className={styles.iconCircle}>
+                {ICON_MAP[item.icon as keyof typeof ICON_MAP]}
+                {/* <FaCarAlt /> */}
+                </div>
                 {index !== history.length - 1 && <div className={styles.verticalLine} />}
               </div>
               <div className={styles.content}>

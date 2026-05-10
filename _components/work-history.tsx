@@ -40,18 +40,16 @@ return (
     <section className={styles.workHistory}>
       <div className={styles.inner}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionNumber}>02</span>
           <h2 className={styles.sectionTitle}>職務経歴</h2>
         </div>
 
         <div className={styles.timeline}>
           {history.map((item, index) => (
             <div key={item.id} className={styles.timelineItem}>
-              <div className={styles.timeLabel}>{item.year}</div>
+              <div className={styles.timeLabel}>{item.years}</div>
               <div className={styles.lineWrapper}>
                 <div className={styles.iconCircle}>
                 {ICON_MAP[item.icon as keyof typeof ICON_MAP]}
-                {/* <FaCarAlt /> */}
                 </div>
                 {index !== history.length - 1 && <div className={styles.verticalLine} />}
               </div>

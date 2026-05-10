@@ -1,6 +1,6 @@
 export type TypeHistory = {
   id: string;
-  year: string;
+  years: string;
   title: string;      
   content: string;
   icon: string;

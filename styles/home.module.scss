@@ -1,5 +1,27 @@
 @use "./variables";
 
+//共通
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  width: max-content;
+  margin: 0 auto 40px;
+
+  // タイトル下の白線
+  &::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #fff;
+    margin: 20px auto 0;
+  }
+}
+
 //ローディングアニメーション
 .loaderContainer {
   position: fixed;
@@ -69,24 +91,6 @@
     text-align: center;
     margin-bottom: 40px;
     position: relative;
-
-    .sectionTitle {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      position: relative;
-      display: inline-block;
-
-      // タイトル下の白線
-      &::after {
-        content: "";
-        display: block;
-        width: 60px;
-        height: 2px;
-        background: #fff;
-        margin: 20px auto 0;
-      }
-    }
   }
 }
 
@@ -184,5 +188,86 @@
 .timelineItem:last-child {
   .content {
     padding-bottom: 0; // 最後の余白を消す
+  }
+}
+
+.skill {
+  padding: 100px 20px;
+  background-color: variables.$color-main;
+
+  .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .skillGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+
+  .skillCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 40px 30px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .iconWrapper {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .skillName {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .skillList {
+      list-style: none;
+      padding: 0;
+      li {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 20px;
+
+        &::before {
+          content: "✔";
+          position: absolute;
+          left: 0;
+          color: variables.$color-sub;
+        }
+      }
+    }
+  }
+
+  .buttonWrapper {
+    text-align: center;
+    .moreBtn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 12px 40px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
+    }
   }
 }

@@ -17,7 +17,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className={styles.copyright}>
-          <p>&copy; {currentYear} Kohama Kazuki. All rights reserved.</p>
+          <p>&copy; {currentYear} Kohama Kazuki . All rights reserved.</p>
         </div>
       </div>
     </footer>

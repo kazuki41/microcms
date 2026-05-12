@@ -36,4 +36,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/  # Next.js のビルド成果物
-          server-dir: /www/kohamart.com  # さくらサーバー上の公開ディレクトリ（適宜変更）
+          server-dir: /www/kohamart.com/ # さくらサーバー上の公開ディレクトリ（適宜変更）

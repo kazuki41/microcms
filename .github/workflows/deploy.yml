@@ -3,7 +3,7 @@ name: Deploy to Sakura Server
 on:
   push:
     branches:
-      - main  # mainブランチにpushされたら発火
+      - master
 
 jobs:
   build-and-deploy:

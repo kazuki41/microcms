@@ -18,7 +18,7 @@ export const Hero = ({
   useEffect(() => {
     const chars = containerRef.current?.querySelectorAll(".char");
     // isReady が false の間、または要素がない場合は何もしない
-    if (!chars || !isReady) return;
+    if (!chars) return;
   
     const tl = gsap.timeline();
   

@@ -6,13 +6,17 @@ import { client } from "../libs/microcms";
 import styles from "../styles/home.module.scss";
 import { Footer } from "../_components/footer";
 
-export const Projects = () => {
+export const Projects = ({ isReady , onDataLoaded } : {isReady: boolean; onDataLoaded: () => void}) => {
   const [projects, setProjects] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
       const res = await client.get({ endpoint: "projects" });
       setProjects(res.contents);
+      if(onDataLoaded){
+        onDataLoaded();
+        console.log('Data Set Completa!!');
+      }
     };
     fetchProjects();
   }, []);

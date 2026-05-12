@@ -13,7 +13,8 @@ import { client } from "../libs/microcms";
 import styles from "../styles/home.module.scss";
 import { TypeHistory } from "../types/work-history";
 
-export const WorkHistory = () => {
+export const WorkHistory = ({ isReady , onDataLoaded }: {
+  isReady: boolean; onDataLoaded: () => void}) => {
   const [history, setHistory] = useState<TypeHistory[]>([]);
 
   useEffect(() => {
@@ -29,6 +30,10 @@ export const WorkHistory = () => {
             new Date(b.createdAt).getTime()
           )
         );
+        if(onDataLoaded){
+          onDataLoaded();
+          // console.log('Data Set Completa!!');
+        }
       } catch (err) {
         console.error("データの取得に失敗しました:", err);
       }

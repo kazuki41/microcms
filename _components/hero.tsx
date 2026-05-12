@@ -4,15 +4,21 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import styles from "../styles/home.module.scss";
 
-export const Hero = ({ startAnim }: { startAnim: boolean }) => {
+export const Hero = ({ 
+  isReady, 
+  onDataLoaded 
+}: { 
+  isReady: boolean; 
+  onDataLoaded: () => void; 
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const text = "KOHAMA PORTFOLIO";
 
   useEffect(() => {
     const chars = containerRef.current?.querySelectorAll(".char");
-    // startAnim が false の間、または要素がない場合は何もしない
-    if (!chars || !startAnim) return;
+    // isReady が false の間、または要素がない場合は何もしない
+    if (!chars || !isReady) return;
   
     const tl = gsap.timeline();
   
@@ -35,7 +41,7 @@ export const Hero = ({ startAnim }: { startAnim: boolean }) => {
       repeat: -1,
     }, "-=3"); // 出現が終わる0.4秒前に開始
   
-  }, [startAnim]);
+  }, [isReady]);
 
   // 関数名を renderLetters に変更して、ライブラリとの衝突を避ける
   const renderLetters = (textString: string) => {

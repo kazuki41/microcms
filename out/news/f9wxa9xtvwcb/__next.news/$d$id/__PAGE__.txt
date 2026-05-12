@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","html",null,{"children":["$","body",null,{"children":["$","main",null,{"style":{"padding":"20px"},"children":[["$","h1",null,{"children":"テスト３"}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"<p><strong>内容内容内容内容内容内容内容内容内容内容内容内容内容内容</strong></p>"}}]]}]}]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"tzbp16FKtF51Q_JmNmpzl"}
-4:null

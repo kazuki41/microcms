@@ -14,14 +14,19 @@ const ICON_MAP = {
   Wordpress: <SiWordpress  />,
 };
 
-export const Skills = () => {
+export const Skills = ({ isReady , onDataLoaded } : {isReady: boolean; onDataLoaded: () => void}) => {
   const [skill, setSkill] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchSkill = async () => {
       const res = await client.get({ endpoint: "skill" });
       setSkill(res.contents);
-      // console.log(res.contents);
+
+      if(onDataLoaded){
+        onDataLoaded();
+        // console.log('Data Set Completa!!');
+      }
+      
     };
     fetchSkill();
   }, []);

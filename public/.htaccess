@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Restricted Area"
+# ↓ あなたのさくらサーバのパスに合わせて書き換えてください
+AuthUserFile /home/kohamart/www/kohamart.com/.htpasswd
+Require valid-user

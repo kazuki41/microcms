@@ -1,30 +1,24 @@
 import Link from 'next/link';
-import styles from '../styles/header.module.scss';
+import styles from '../styles/home.module.scss';
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <div className={styles.logo}>
-          <Link href="/">SITE NAME</Link>
+          <Link href="/">PORTFOLIO</Link>
         </div>
         
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <Link href="/about">ABOUT US</Link>
+              <Link href="#history">職務経歴</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/services">SERVICES</Link>
+              <Link href="#skill">スキル</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/works">WORKS</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/news">NEWS</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/contact">CONTACT</Link>
+              <Link href="#projects">制作実績</Link>
             </li>
           </ul>
         </nav>

@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import { client } from "../libs/microcms";
 import styles from "../styles/home.module.scss";
-import { SiReact, SiDjango, SiJavascript, SiHtml5 } from "react-icons/si";
+import { SiReact, SiDjango, SiJavascript, SiHtml5, SiPhp, SiWordpress } from "react-icons/si";
 
 const ICON_MAP = {
   React: <SiReact />,
   Django: <SiDjango />,
   Javascript: <SiJavascript />,
   Html: <SiHtml5 />,
+  Php: <SiPhp />,
+  Wordpress: <SiWordpress  />,
 };
 
 export const Skills = () => {
@@ -19,13 +21,13 @@ export const Skills = () => {
     const fetchSkill = async () => {
       const res = await client.get({ endpoint: "skill" });
       setSkill(res.contents);
+      // console.log(res.contents);
     };
     fetchSkill();
-    console.log(fetchSkill);
   }, []);
 
   return (
-    <section className={styles.skill}>
+    <section id="skill" className={styles.skill}>
       <div className={styles.inner}>
         <div className={styles.sectionHeader}>
         <h2 className={styles.sectionTitle}>スキル</h2>
@@ -36,7 +38,7 @@ export const Skills = () => {
             <div key={skill.id} className={styles.skillCard}>
               <div
                 className={styles.iconWrapper}
-                // style={skill.color}
+                style={{color: skill.color}}
               >
                 {ICON_MAP[skill.icon as keyof typeof ICON_MAP]}
               </div>

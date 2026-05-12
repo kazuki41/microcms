@@ -22,6 +22,58 @@
   }
 }
 
+.mainFixed {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; // 親はスクロールさせない
+  background-color: variables.$color-main;
+}
+
+.zoomWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.scrollableContent {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; // コンテンツが長い場合はここがスクロールする
+  overflow-x: hidden;
+  
+  /* スクロールバーのデザイン（任意） */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+// インジケーター（右側の点）
+.sideDots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .dot, .dotActive {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: 0.3s;
+  }
+  .dotActive {
+    background: #fff;
+    transform: scale(1.5);
+  }
+}
+
 //ローディングアニメーション
 .loaderContainer {
   position: fixed;
@@ -36,6 +88,58 @@
     height: 100%;
     background-color: variables.$color-white;
     width: 100.5%; 
+  }
+}
+
+.header {
+  position: fixed;   // 画面上部に固定
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;     // 一番手前に表示
+  background: variables.$color-main; // ほんのりネイビーの透かし
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    a {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      // 建築系っぽく「角」を意識したデザイン
+      border-left: 4px solid variables.$color-navy; 
+      padding-left: 15px;
+    }
+  }
+
+  .nav {
+    ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: 0.3s;
+        &:hover {
+          color: variables.$color-sub; // ホバー時にメインカラーに
+        }
+      }
+    }
   }
 }
 
@@ -220,12 +324,17 @@
     }
 
     .iconWrapper {
-      font-size: 3rem;
+      font-size: 5rem;
       margin-bottom: 20px;
       display: flex;
       gap: 10px;
+      justify-content: center;
     }
 
+    .skillTitle{
+      text-align: center;
+    }
+    
     .skillName {
       font-size: 1.5rem;
       font-weight: bold;
@@ -252,22 +361,127 @@
       }
     }
   }
+}
 
-  .buttonWrapper {
-    text-align: center;
-    .moreBtn {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      padding: 12px 40px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s;
+.projects {
+  padding: 100px 20px;
+  background-color: variables.$color-main;
+  
+  .projectGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+  }
 
-      &:hover {
-        background: #fff;
-        color: #000;
+  .projectCard {
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: 0.3s;
+
+    &:hover {
+      transform: translateY(-10px);
+      .imageWrapper img {
+        transform: scale(1.1); // ホバーで画像を拡大
       }
+    }
+
+    .imageWrapper {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      
+      img {
+        transition: 0.5s ease;
+      }
+    }
+
+    .projectBody {
+      padding: 24px;
+      
+      .projectTitle {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+      }
+
+      .tagList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+        
+        .tag {
+          font-size: 0.75rem;
+          background: rgba(255,255,255,0.1);
+          padding: 4px 12px;
+          border-radius: 20px;
+          color: variables.$color-sub;
+        }
+      }
+
+      .linkBtn{
+        display: block;
+        margin: 0 auto;
+        width: max-content;
+        color: #2565df;
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: #0d0d0d; // 背景よりさらに一段暗い色
+  padding: 60px 20px 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .footerLogo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .snsLinks {
+    font-size: 3rem;
+    margin: 0 auto;
+  
+    a {
+      display: block;
+      color: #fff;
+      transition: 0.3s;
+      &:hover {
+        color: variables.$color-sub;
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 30px;
+    
+    p {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
     }
   }
 }

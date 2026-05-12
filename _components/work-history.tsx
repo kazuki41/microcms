@@ -37,7 +37,7 @@ export const WorkHistory = () => {
   }, []); 
 
 return (
-    <section className={styles.workHistory}>
+    <section id="history" className={styles.workHistory}>
       <div className={styles.inner}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>職務経歴</h2>

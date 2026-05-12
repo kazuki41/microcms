@@ -7,7 +7,7 @@ import styles from "../styles/home.module.scss";
 export const Hero = ({ startAnim }: { startAnim: boolean }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const text = "SAMPLE SITE";
+  const text = "KOHAMA PORTFOLIO";
 
   useEffect(() => {
     const chars = containerRef.current?.querySelectorAll(".char");
@@ -22,7 +22,7 @@ export const Hero = ({ startAnim }: { startAnim: boolean }) => {
       opacity: 0, 
       x: 100,
       rotateY: 45,
-      duration: 1, 
+      duration: 0, 
       stagger: 0.1, 
       ease: "power3.out" ,
     })

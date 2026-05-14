@@ -136,7 +136,7 @@ export default function Home() {
       {/* メインコンテンツ：isLoaded後に表示 */}
       {isLoaded && (
         <AnimatePresence mode="wait">
-          <motion.div
+          {/* <motion.div
             key={index}
             initial={index === 0 ? false : { opacity: 0, scale: 0.8 }} // 奥から登場
             animate={
@@ -148,14 +148,14 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             onAnimationComplete={() => setIsZoomDone(true)}
             className={styles.zoomWrapper}
-          >
+          > */}
             <div className={styles.scrollableContent}>
               <CurrentComponent
                 isReady={isZoomDone}
                 onDataLoaded={() => setIsDataLoaded(true)}
               />
             </div>
-          </motion.div>
+          {/* </motion.div> */}
         </AnimatePresence>
       )}
 

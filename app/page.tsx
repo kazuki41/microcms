@@ -58,41 +58,41 @@ export default function Home() {
   }, []);
 
   // --- ズーム切り替えロジック ---
-  useEffect(() => {
-    if (!isLoaded) return;
+  // useEffect(() => {
+  //   if (!isLoaded) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      if (isAnimating) return;
+  //   const handleWheel = (e: WheelEvent) => {
+  //     if (isAnimating) return;
 
-      // 現在表示中のスクロール可能なエリアを取得
-      const activeContent = document.querySelector(
-        `.${styles.scrollableContent}`,
-      );
-      // console.log(activeContent);
+  //     // 現在表示中のスクロール可能なエリアを取得
+  //     const activeContent = document.querySelector(
+  //       `.${styles.scrollableContent}`,
+  //     );
+  //     // console.log(activeContent);
 
-      if (activeContent) {
-        const { scrollTop, scrollHeight, clientHeight } = activeContent;
-        // 1px程度の誤差を許容して判定
-        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-        const isAtTop = scrollTop <= 0;
+  //     if (activeContent) {
+  //       const { scrollTop, scrollHeight, clientHeight } = activeContent;
+  //       // 1px程度の誤差を許容して判定
+  //       const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+  //       const isAtTop = scrollTop <= 0;
 
-        // 下スクロール時にまだ下にコンテンツがあれば切り替えない
-        if (e.deltaY > 0 && !isAtBottom) return;
-        // 上スクロール時にまだ上にコンテンツがあれば切り替えない
-        if (e.deltaY < 0 && !isAtTop) return;
-      }
+  //       // 下スクロール時にまだ下にコンテンツがあれば切り替えない
+  //       if (e.deltaY > 0 && !isAtBottom) return;
+  //       // 上スクロール時にまだ上にコンテンツがあれば切り替えない
+  //       if (e.deltaY < 0 && !isAtTop) return;
+  //     }
 
-      // ズーム切り替え発火
-      if (e.deltaY > 0 && index < SECTIONS.length - 1) {
-        changeSection(index + 1);
-      } else if (e.deltaY < 0 && index > 0) {
-        changeSection(index - 1);
-      }
-    };
+  //     // ズーム切り替え発火
+  //     if (e.deltaY > 0 && index < SECTIONS.length - 1) {
+  //       changeSection(index + 1);
+  //     } else if (e.deltaY < 0 && index > 0) {
+  //       changeSection(index - 1);
+  //     }
+  //   };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [isLoaded, index, isAnimating]);
+  //   window.addEventListener("wheel", handleWheel, { passive: false });
+  //   return () => window.removeEventListener("wheel", handleWheel);
+  // }, [isLoaded, index, isAnimating]);
 
   const CurrentComponent = SECTIONS[index].component;
 

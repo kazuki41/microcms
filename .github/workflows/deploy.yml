@@ -41,3 +41,4 @@ jobs:
           exclude: |
             **/.git*
             **/node_modules/**
+            dangerous-clean-slate: false

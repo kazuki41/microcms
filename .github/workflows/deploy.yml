@@ -37,3 +37,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/  # Next.js のビルド成果物
           server-dir: www/kohamart.com/ # さくらサーバー上の公開ディレクトリ
+          state-name: .ftp-deploy-sync-state.json
+          exclude: |
+            **/.git*
+            **/node_modules/**

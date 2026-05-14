@@ -58,43 +58,94 @@ export default function Home() {
   }, []);
 
   // --- ズーム切り替えロジック ---
-  // useEffect(() => {
-  //   if (!isLoaded) return;
+  useEffect(() => {
+    if (!isLoaded) return;
 
-  //   const handleWheel = (e: WheelEvent) => {
-  //     if (isAnimating) return;
+    const handleWheel = (e: WheelEvent) => {
+      if (isAnimating) return;
 
-  //     // 現在表示中のスクロール可能なエリアを取得
-  //     const activeContent = document.querySelector(
-  //       `.${styles.scrollableContent}`,
-  //     );
-  //     // console.log(activeContent);
+      // 現在表示中のスクロール可能なエリアを取得
+      const activeContent = document.querySelector(
+        `.${styles.scrollableContent}`,
+      );
+      // console.log(activeContent);
 
-  //     if (activeContent) {
-  //       const { scrollTop, scrollHeight, clientHeight } = activeContent;
-  //       // 1px程度の誤差を許容して判定
-  //       const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-  //       const isAtTop = scrollTop <= 0;
+      if (activeContent) {
+        const { scrollTop, scrollHeight, clientHeight } = activeContent;
+        // 1px程度の誤差を許容して判定
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+        const isAtTop = scrollTop <= 0;
 
-  //       // 下スクロール時にまだ下にコンテンツがあれば切り替えない
-  //       if (e.deltaY > 0 && !isAtBottom) return;
-  //       // 上スクロール時にまだ上にコンテンツがあれば切り替えない
-  //       if (e.deltaY < 0 && !isAtTop) return;
-  //     }
+        // 下スクロール時にまだ下にコンテンツがあれば切り替えない
+        if (e.deltaY > 0 && !isAtBottom) return;
+        // 上スクロール時にまだ上にコンテンツがあれば切り替えない
+        if (e.deltaY < 0 && !isAtTop) return;
+      }
 
-  //     // ズーム切り替え発火
-  //     if (e.deltaY > 0 && index < SECTIONS.length - 1) {
-  //       changeSection(index + 1);
-  //     } else if (e.deltaY < 0 && index > 0) {
-  //       changeSection(index - 1);
-  //     }
-  //   };
+      // ズーム切り替え発火
+      if (e.deltaY > 0 && index < SECTIONS.length - 1) {
+        changeSection(index + 1);
+      } else if (e.deltaY < 0 && index > 0) {
+        changeSection(index - 1);
+      }
+    };
 
-  //   window.addEventListener("wheel", handleWheel, { passive: false });
-  //   return () => window.removeEventListener("wheel", handleWheel);
-  // }, [isLoaded, index, isAnimating]);
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isLoaded, index, isAnimating]);
 
   const CurrentComponent = SECTIONS[index].component;
+
+
+  // --- タッチ（スワイプ）操作の追加 ---
+useEffect(() => {
+  if (!isLoaded) return;
+
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartY = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    touchEndY = e.changedTouches[0].clientY;
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    const swipeDistance = touchStartY - touchEndY;
+    const threshold = 50; // 50px以上のスワイプで反応
+
+    if (isAnimating) return;
+
+    // 現在のコンテンツがスクロール中かどうかを確認（PC版のwheelロジックと同様）
+    const activeContent = document.querySelector(`.${styles.scrollableContent}`);
+    if (activeContent) {
+      const { scrollTop, scrollHeight, clientHeight } = activeContent;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+      const isAtTop = scrollTop <= 0;
+
+      // 下から上へのスワイプ（次へ）
+      if (swipeDistance > threshold && isAtBottom) {
+        if (index < SECTIONS.length - 1) changeSection(index + 1);
+      }
+      // 上から下へのスワイプ（前へ）
+      if (swipeDistance < -threshold && isAtTop) {
+        if (index > 0) changeSection(index - 1);
+      }
+    }
+  };
+
+  window.addEventListener("touchstart", handleTouchStart);
+  window.addEventListener("touchend", handleTouchEnd);
+  
+  return () => {
+    window.removeEventListener("touchstart", handleTouchStart);
+    window.removeEventListener("touchend", handleTouchEnd);
+  };
+}, [isLoaded, index, isAnimating]);
+
 
   return (
     <div className={styles.mainFixed}>
@@ -136,7 +187,7 @@ export default function Home() {
       {/* メインコンテンツ：isLoaded後に表示 */}
       {isLoaded && (
         <AnimatePresence mode="wait">
-          {/* <motion.div
+          <motion.div
             key={index}
             initial={index === 0 ? false : { opacity: 0, scale: 0.8 }} // 奥から登場
             animate={
@@ -148,14 +199,14 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             onAnimationComplete={() => setIsZoomDone(true)}
             className={styles.zoomWrapper}
-          > */}
+          >
             <div className={styles.scrollableContent}>
               <CurrentComponent
                 isReady={isZoomDone}
                 onDataLoaded={() => setIsDataLoaded(true)}
               />
             </div>
-          {/* </motion.div> */}
+          </motion.div>
         </AnimatePresence>
       )}
 

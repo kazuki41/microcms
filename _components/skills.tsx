@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { client } from "../libs/microcms";
 import styles from "../styles/home.module.scss";
 import { SiReact, SiDjango, SiJavascript, SiHtml5, SiPhp, SiWordpress } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 
 const ICON_MAP = {
   React: <SiReact />,
@@ -12,6 +13,7 @@ const ICON_MAP = {
   Html: <SiHtml5 />,
   Php: <SiPhp />,
   Wordpress: <SiWordpress  />,
+  Aws: <FaAws />,
 };
 
 export const Skills = ({ isReady , onDataLoaded } : {isReady: boolean; onDataLoaded: () => void}) => {

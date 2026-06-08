@@ -1,4 +1,4 @@
-name: Deploy to Sakura Server
+name: Deploy to EC2
 
 on:
   push:
@@ -29,16 +29,11 @@ jobs:
           NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           NEXT_PUBLIC_MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy to EC2 via SSH
+        uses: easingthemes/ssh-deploy@main
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/  # Next.js のビルド成果物
-          server-dir: www/kohamart.com/ # さくらサーバー上の公開ディレクトリ
-          state-name: .ftp-deploy-sync-state.json
-          exclude: |
-            **/.git*
-            **/node_modules/**
-            dangerous-clean-slate: false
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+          SOURCE: "out/" # GitHub Actions側でビルドされたフォルダ
+          TARGET: "/var/www/html" # EC2上のWEB公開ディレクトリ（環境に合わせて変更してください）

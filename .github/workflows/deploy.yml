@@ -59,3 +59,13 @@ jobs:
           REMOTE_USER: ${{ secrets.EC2_USERNAME }}
           SOURCE: "out/" # GitHub Actions側でビルドされたフォルダ
           TARGET: "/var/www/kohamart.com" # EC2上のWEB公開ディレクトリ（環境に合わせて変更してください）
+
+        # 🔒 5. 【超重要】デプロイが成功しても失敗しても、絶対にポート22を閉じる
+      - name: Close SSH port in Security Group
+        if: always() # 何があっても必ず実行するお守り
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id ${{ secrets.AWS_SG_ID }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32

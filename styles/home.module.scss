@@ -436,7 +436,9 @@
           color: variables.$color-sub;
         }
       }
-
+.projectDesc{
+      white-space: pre-wrap;
+      }
       .linkBtn{
         display: block;
         margin: 0 auto;
